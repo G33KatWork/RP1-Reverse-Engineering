@@ -1,0 +1,25 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&_i2c3>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@1 {
+		target = <&gio_aon>;
+		__overlay__ {
+			rp1_run_hog {
+				status = "disabled";
+			};
+		};
+	};
+};
+
+// dtc -@ -I dts -O dtb -o rp1_bootstrap.dtbo rp1_bootstrap.dtso
+// mkdir /sys/kernel/config/device-tree/overlays/rp1
+// cat rp1_bootstrap.dtbo > /sys/kernel/config/device-tree/overlays/rp1/dtbo
+// modprobe i2c-dev
