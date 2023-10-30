@@ -8,7 +8,7 @@ Firmware
 --------
 
 The RP1 has two Cortex-M3 cores and runs firmware that gets loaded by the first
-state bootloader running on the videocore. The code is located on an SPI-EEPROM
+stage bootloader running on the videocore. The code is located on an SPI-EEPROM
 on the board.
 
 The EEPROM images can be found in an [offical repo here](https://github.com/raspberrypi/rpi-eeprom)
@@ -30,7 +30,7 @@ There are three pins available for Host <-> RP1 bootstrap communication:
 SCL and SDA are the usual I2C lines and RP1_RUN is a GPIO that is an inverted
 reset pin. Pull it down, the RP1 is in reset, pull it up again, it boots.
 
-Prerequesites
+Prerequisites
 -------------
 
 If you want to run any commands in there, install the following packages.
@@ -42,7 +42,7 @@ Accessing the bootstrap hardware
 --------------------------------
 
 The bootstrapping hardware, the I2C interface and the RUN GPIO, is not by
-default accesible from linux. That can be fixed by loading a [device tree overlay](overlay/rp1_bootstrap.dtso).
+default accessible from linux. That can be fixed by loading a [device tree overlay](overlay/rp1_bootstrap.dtso).
 
 When [loading the overlay](overlay/load_overlay.sh), `i2c10` and the formerly
 hogged RUN GPIO is exposed to the userspace.
@@ -82,7 +82,7 @@ Then a bunch of Watchdog scratch registers are set to the following values:
 After the scratch registers have been written, a watchdog reset of the CPU is
 performed. The first write sets the bit for the peripheral that should be reset
 by the watchdog, presumably this is PROC0, but it's just a guess. Then, a
-watchdog reset is triggered to setting the trigger bit.
+watchdog reset is triggered by setting the trigger bit.
 
 * `0x40010008` = `0x100`
 * `0x40154000` = `0x80000000`
@@ -134,13 +134,16 @@ by poking the right registers over `/dev/mem`.
 Dumping the bootrom
 -------------------
 
-I'd like to dump the boot ROM and look at it. For this, we need something like
+~~I'd like to dump the boot ROM and look at it. For this, we need something like
 a working clock tree, I guess, because we ideally want to spit it out over a
 UART with a certain baud rate. We could also set some baud rate, check the
 result on a scope and then adjust the baud rate divider until we have something
 we can work with.
 
-This is a TODO.
+This is a TODO.~~
+
+Thanks to Michael, we figured out how to perform I2C reads. We were also missing
+some resets. `load_firmware.py` now also dumps the boot ROM. Have fun!
 
 Sources of Intel
 ----------------
