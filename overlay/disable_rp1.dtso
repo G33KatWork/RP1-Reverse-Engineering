@@ -1,0 +1,16 @@
+// This overlay disables the RP1 altogether
+// Handy when loaded during boot by adding it to config.txt
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&rp1_target>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};
+
+// dtc -@ -I dts -O dtb -o disable_rp1.dtbo disable_rp1.dtso

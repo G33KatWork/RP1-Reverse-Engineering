@@ -15,6 +15,9 @@ void main() {
     // *((volatile uint32_t*)(0x40014004)) = 0;
     // *((volatile uint32_t*)(0x40014008)) = 0;
 
+    // clear some reset, unknown yet what exactly this is, but it makes LED go blink
+    *((volatile uint32_t*)(0x40017004)) = 1<<19;
+
     // func: SYS_RIO, output and output enable from peripheral
     *((volatile uint32_t*)(0x400d008c)) = 0x85;
 
