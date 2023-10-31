@@ -1,5 +1,5 @@
 OBJ = startup.o main.o
-BINARY = blinky
+BINARY = second_core
 
 AS = arm-none-eabi-as
 CC = arm-none-eabi-gcc

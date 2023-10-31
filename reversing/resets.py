@@ -154,7 +154,6 @@ def main():
     write_reg(0x40000000 + 0x016000 + 4, (1 << 18))
     write_reg(0x40000000 + 0x017000 + 4, (1 << 18))
 
-
     skip_bits = [
         [
             1,          #AUDIO_IN
@@ -187,6 +186,7 @@ def main():
             28,         #PLL_AUDIO
             29,         #PLL_SYS
             30,         #PLL_VIDEO
+            31,         #PROC1, might also be another PLL
         ],
         [
             4,          #PWM0
